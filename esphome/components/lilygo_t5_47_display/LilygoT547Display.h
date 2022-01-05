@@ -34,6 +34,7 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void update() override;
 
   void clear();
+  void fill(Color color) override;
   // Was screen cleared at leat once
   bool was_cleared();
   void flush_screen_changes();
