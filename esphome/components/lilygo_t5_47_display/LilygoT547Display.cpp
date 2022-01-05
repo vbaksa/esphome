@@ -53,7 +53,7 @@ void LilygoT547Display::clear() {
 
 void LilygoT547Display::fill(Color color) {
   if (color.red == 0 && color.green == 0 && color.blue == 0) {
-    LilygoT547Display::clear();
+    epd_clear();
   } else {
     int col = (0.2126 * color.red) + (0.7152 * color.green) + (0.0722 * color.blue);
     int cl = 255 - col;
