@@ -52,10 +52,11 @@ void LilygoT547Display::clear() {
 }
 
 void LilygoT547Display::fill(Color color) {
-  if (!color.is_on()) {
+  // inverse color
+  if (color.is_on()) {
     LilygoT547Display::clear();
-    return;
   }
+  // skip the rest to avoid redraw
 }
 // Was screen cleared at leat once
 bool LilygoT547Display::was_cleared() { return this->was_cleared_; }
