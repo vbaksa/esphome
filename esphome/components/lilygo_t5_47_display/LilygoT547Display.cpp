@@ -37,7 +37,7 @@ void LilygoT547Display::setup() {
     epd_hl_set_all_white(&hl);
   }
   this->do_update_();
-  epd_poweroff();
+  LilygoT547Display::flush_screen_changes()
 }
 
 void LilygoT547Display::update() {
@@ -47,7 +47,7 @@ void LilygoT547Display::update() {
 
 void LilygoT547Display::clear() {
   epd_clear();
-  epd_hl_set_all_white(&this->hl);
+  epd_hl_set_all_white(&hl);
   this->was_cleared_ = true;
 }
 // Was screen cleared at leat once
