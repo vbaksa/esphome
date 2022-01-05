@@ -52,11 +52,18 @@ void LilygoT547Display::clear() {
 }
 
 void LilygoT547Display::fill(Color color) {
-  // inverse color
-  if (color.is_on()) {
+  if (color.red == 0 && color.green == 0 && color.blue == 0) {
     LilygoT547Display::clear();
+  } else {
+    int col = (0.2126 * color.red) + (0.7152 * color.green) + (0.0722 * color.blue);
+    int cl = 255 - col;
+
+    EpdRect fill_area = {.x = 100,
+                         .y = 100,
+                         .width = LilygoT547Display::get_width_internal(),
+                         .height = LilygoT547Display::get_height_internal()};
+    epd_fill_rect(fill_area, cl, fb);
   }
-  // skip the rest to avoid redraw
 }
 // Was screen cleared at leat once
 bool LilygoT547Display::was_cleared() { return this->was_cleared_; }
