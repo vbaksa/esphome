@@ -50,6 +50,12 @@ void LilygoT547Display::clear() {
   epd_hl_set_all_white(&hl);
   this->was_cleared_ = true;
 }
+
+void LilygoT547Display::fill(Color color) {
+  if (color == COLOR_OFF) {
+    LilygoT547Display::clear();
+  }
+}
 // Was screen cleared at leat once
 bool LilygoT547Display::was_cleared() { return this->was_cleared_; }
 
