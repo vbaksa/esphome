@@ -37,7 +37,7 @@ void LilygoT547Display::setup() {
     epd_hl_set_all_white(&hl);
   }
   this->do_update_();
-  LilygoT547Display::flush_screen_changes()
+  LilygoT547Display::flush_screen_changes();
 }
 
 void LilygoT547Display::update() {
