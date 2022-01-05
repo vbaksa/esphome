@@ -52,8 +52,9 @@ void LilygoT547Display::clear() {
 }
 
 void LilygoT547Display::fill(Color color) {
-  if (color == COLOR_OFF) {
+  if (color == esphome::display::COLOR_OFF) {
     LilygoT547Display::clear();
+    return;
   }
 }
 // Was screen cleared at leat once
