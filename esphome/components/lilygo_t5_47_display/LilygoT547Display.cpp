@@ -49,8 +49,10 @@ void LilygoT547Display::update() {
 }
 
 void LilygoT547Display::clean() {
+  ESP_LOGD(TAG, "Clearing screen");
   epd_clear();
   epd_hl_set_all_white(&hl);
+  ESP_LOGD(TAG, "Screen cleaning completed");
 }
 
 void LilygoT547Display::fill(Color color) {
@@ -72,9 +74,11 @@ void LilygoT547Display::fill(Color color) {
 }
 
 void LilygoT547Display::flush_screen_changes() {
+  ESP_LOGD(TAG, "Flushing changes");
   epd_poweron();
   err = epd_hl_update_screen(&hl, MODE_GC16, this->temperature_);
   epd_poweroff();
+  ESP_LOGD(TAG, "Changes been flushed");
 }
 
 void LilygoT547Display::set_all_white() { epd_hl_set_all_white(&hl); }
