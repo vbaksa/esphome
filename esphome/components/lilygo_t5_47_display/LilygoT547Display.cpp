@@ -52,9 +52,9 @@ void LilygoT547Display::clear() {
 }
 
 void LilygoT547Display::fill(Color color) {
-  ESP_LOGI(TAG, "Color fill red value [%s]", color.red);
-  ESP_LOGI(TAG, "Color fill green value [%s]", color.green);
-  ESP_LOGI(TAG, "Color fill blue value [%s]", color.blue);
+  ESP_LOGD(TAG, "Color fill red value [%u]", color.red);
+  ESP_LOGD(TAG, "Color fill green value [%u]", color.green);
+  ESP_LOGD(TAG, "Color fill blue value [%u]", color.blue);
   if (color.red == 0 && color.green == 0 && color.blue == 0) {
     epd_clear();
   } else {
