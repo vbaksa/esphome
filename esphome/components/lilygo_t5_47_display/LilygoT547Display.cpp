@@ -37,11 +37,14 @@ void LilygoT547Display::setup() {
 }
 
 void LilygoT547Display::update() {
+  ESP_LOGD(TAG, "Running screen update");
   if (this->init_clear_executed_ == false && this->clear_ == true) {
     LilygoT547Display::clean();
     this->init_clear_executed_ = true;
   }
+  ESP_LOGD(TAG, "Updating framebuffer");
   this->do_update_();
+  ESP_LOGD(TAG, "Flushing changes");
   LilygoT547Display::flush_screen_changes();
 }
 
@@ -51,6 +54,7 @@ void LilygoT547Display::clean() {
 }
 
 void LilygoT547Display::fill(Color color) {
+  // ESP_LOGD(TAG, "Setting up Lilygo T5-4.7 display");
   ESP_LOGD(TAG, "Color fill red value [%u]", color.red);
   ESP_LOGD(TAG, "Color fill green value [%u]", color.green);
   ESP_LOGD(TAG, "Color fill blue value [%u]", color.blue);
