@@ -71,6 +71,7 @@ void LilygoT547Display::fill(Color color) {
                          .height = LilygoT547Display::get_height_internal()};
     epd_fill_rect(fill_area, cl, fb);
   }
+  ESP_LOGD(TAG, "Display Fill completed");
 }
 
 void LilygoT547Display::flush_screen_changes() {
