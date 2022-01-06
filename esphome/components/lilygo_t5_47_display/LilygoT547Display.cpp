@@ -37,7 +37,7 @@ void LilygoT547Display::setup() {
 void LilygoT547Display::update() {
   if (this->init_clear_executed_ == false && this->clear_ == true) {
     LilygoT547Display::clean();
-    init_clear_executed_ = true;
+    this->init_clear_executed_ = true;
   }
   this->do_update_();
   LilygoT547Display::flush_screen_changes();
@@ -49,9 +49,9 @@ void LilygoT547Display::clean() {
 }
 
 void LilygoT547Display::fill(Color color) {
-  ESP_LOGI(TAG, "Color fill red [%u]",(color.red);
-  ESP_LOGI(TAG, "Color fill green [%u]",(color.green);
-  ESP_LOGI(TAG, "Color fill blue [%u]",(color.blue);
+  ESP_LOGI(TAG, "Color fill red [%u]", color.red);
+  ESP_LOGI(TAG, "Color fill green [%u]", color.green);
+  ESP_LOGI(TAG, "Color fill blue [%u]", color.blue);
   if (color.red == 0 && color.green == 0 && color.blue == 0) {
     LilygoT547Display::clean();
   } else {
