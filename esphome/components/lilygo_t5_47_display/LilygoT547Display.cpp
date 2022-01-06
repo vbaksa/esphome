@@ -8,7 +8,7 @@ namespace lilygo_t5_47_display {
 
 static const char *const TAG = "lilygo_t5_47_display";
 
-float LilygoT547Display::get_setup_priority() const { return esphome::setup_priority::PROCESSOR; }
+float LilygoT547Display::get_setup_priority() const { return esphome::setup_priority::LATE; }
 
 void LilygoT547Display::set_clear_screen(bool clear) { this->clear_ = clear; }
 void LilygoT547Display::set_landscape(bool landscape) { this->landscape_ = landscape; }
@@ -30,18 +30,15 @@ void LilygoT547Display::setup() {
     EpdRotation orientation = EPD_ROT_PORTRAIT;
     epd_set_rotation(orientation);
   }
-
-  fb = epd_hl_get_framebuffer(&hl);
-  if (this->clear_) {
-    clean();
-    epd_hl_set_all_white(&hl);
-  }
   this->set_auto_clear(false);
-  this->do_update_();
-  LilygoT547Display::flush_screen_changes();
+  // this->do_update_();
 }
 
 void LilygoT547Display::update() {
+  if (this->init_clear_executed_ == false && this->clear_ == true) {
+    LilygoT547Display::clean();
+    init_clear_executed_ = true;
+  }
   this->do_update_();
   LilygoT547Display::flush_screen_changes();
 }
@@ -49,12 +46,14 @@ void LilygoT547Display::update() {
 void LilygoT547Display::clean() {
   epd_clear();
   epd_hl_set_all_white(&hl);
-  this->was_cleared_ = true;
 }
 
 void LilygoT547Display::fill(Color color) {
+  ESP_LOGI(TAG, "Color fill red [%u]",(color.red);
+  ESP_LOGI(TAG, "Color fill green [%u]",(color.green);
+  ESP_LOGI(TAG, "Color fill blue [%u]",(color.blue);
   if (color.red == 0 && color.green == 0 && color.blue == 0) {
-    epd_clear();
+    LilygoT547Display::clean();
   } else {
     int col = (0.2126 * color.red) + (0.7152 * color.green) + (0.0722 * color.blue);
     int cl = 255 - col;
@@ -66,8 +65,6 @@ void LilygoT547Display::fill(Color color) {
     epd_fill_rect(fill_area, cl, fb);
   }
 }
-// Was screen cleared at leat once
-bool LilygoT547Display::was_cleared() { return this->was_cleared_; }
 
 void LilygoT547Display::flush_screen_changes() {
   epd_poweron();

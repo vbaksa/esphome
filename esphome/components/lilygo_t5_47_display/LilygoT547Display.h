@@ -35,8 +35,6 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
 
   void clean();
   void fill(Color color) override;
-  // Was screen cleared at leat once
-  bool was_cleared();
   void flush_screen_changes();
   void set_all_white();
   void poweron();
@@ -47,7 +45,7 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void HOT draw_absolute_pixel_internal(int x, int y, Color color) override;
 
   bool clear_;
-  bool was_cleared_ = false;
+  bool init_clear_executed_ = false;
   bool temperature_;
   bool landscape_;
 };
