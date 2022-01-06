@@ -52,14 +52,17 @@ void LilygoT547Display::clear() {
 }
 
 void LilygoT547Display::fill(Color color) {
+  ESP_LOGI(TAG, "Color fill red value [%s] [%s] [%s]", color.red);
+  ESP_LOGI(TAG, "Color fill green value [%s] [%s] [%s]", color.green);
+  ESP_LOGI(TAG, "Color fill blue value [%s] [%s] [%s]", color.blue);
   if (color.red == 0 && color.green == 0 && color.blue == 0) {
     epd_clear();
   } else {
     int col = (0.2126 * color.red) + (0.7152 * color.green) + (0.0722 * color.blue);
     int cl = 255 - col;
 
-    EpdRect fill_area = {.x = 100,
-                         .y = 100,
+    EpdRect fill_area = {.x = 0,
+                         .y = 0,
                          .width = LilygoT547Display::get_width_internal(),
                          .height = LilygoT547Display::get_height_internal()};
     epd_fill_rect(fill_area, cl, fb);
