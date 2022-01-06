@@ -23,7 +23,6 @@ void LilygoT547Display::setup() {
   ESP_LOGD(TAG, "Setting up Lilygo T5-4.7 display");
   epd_init(EPD_OPTIONS_DEFAULT);
   hl = epd_hl_init(WAVEFORM);
-
   if (landscape_) {
     EpdRotation orientation = EPD_ROT_LANDSCAPE;
     epd_set_rotation(orientation);
@@ -31,6 +30,7 @@ void LilygoT547Display::setup() {
     EpdRotation orientation = EPD_ROT_PORTRAIT;
     epd_set_rotation(orientation);
   }
+  fb = epd_hl_get_framebuffer(&hl);
   // this->set_auto_clear(false);
   // this->do_update_();
   ESP_LOGD(TAG, "Display setup completed - Lilygo T5-4.7 display");
