@@ -55,7 +55,7 @@ void LilygoT547Display::clean() {
   ESP_LOGD(TAG, "Screen cleaning completed");
 }
 
-void LilygoT547Display::fill(Color color) {
+void LilygoT547Display::fill_screen(Color color) {
   return;
   // ESP_LOGD(TAG, "Setting up Lilygo T5-4.7 display");
   ESP_LOGD(TAG, "Color fill red value [%u]", color.red);
