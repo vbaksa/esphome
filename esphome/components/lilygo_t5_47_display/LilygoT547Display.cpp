@@ -20,6 +20,7 @@ int LilygoT547Display::get_width_internal() { return 960; }
 int LilygoT547Display::get_height_internal() { return 540; }
 
 void LilygoT547Display::setup() {
+  ESP_LOGD(TAG, "Setting up Lilygo T5-4.7 display");
   epd_init(EPD_OPTIONS_DEFAULT);
   hl = epd_hl_init(WAVEFORM);
 
@@ -32,6 +33,7 @@ void LilygoT547Display::setup() {
   }
   this->set_auto_clear(false);
   // this->do_update_();
+  ESP_LOGD(TAG, "Display setup completed - Lilygo T5-4.7 display");
 }
 
 void LilygoT547Display::update() {
@@ -57,7 +59,6 @@ void LilygoT547Display::fill(Color color) {
   } else {
     int col = (0.2126 * color.red) + (0.7152 * color.green) + (0.0722 * color.blue);
     int cl = 255 - col;
-
     EpdRect fill_area = {.x = 0,
                          .y = 0,
                          .width = LilygoT547Display::get_width_internal(),
