@@ -33,7 +33,7 @@ void LilygoT547Display::setup() {
 
   fb = epd_hl_get_framebuffer(&hl);
   if (this->clear_) {
-    clear();
+    clean();
     epd_hl_set_all_white(&hl);
   }
   this->do_update_();
@@ -45,16 +45,13 @@ void LilygoT547Display::update() {
   LilygoT547Display::flush_screen_changes();
 }
 
-void LilygoT547Display::clear() {
+void LilygoT547Display::clean() {
   epd_clear();
   epd_hl_set_all_white(&hl);
   this->was_cleared_ = true;
 }
 
 void LilygoT547Display::fill(Color color) {
-  ESP_LOGD(TAG, "Color fill red value [%u]", color.red);
-  ESP_LOGD(TAG, "Color fill green value [%u]", color.green);
-  ESP_LOGD(TAG, "Color fill blue value [%u]", color.blue);
   if (color.red == 0 && color.green == 0 && color.blue == 0) {
     epd_clear();
   } else {
