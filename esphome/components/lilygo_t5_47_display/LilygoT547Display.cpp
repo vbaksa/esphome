@@ -32,7 +32,7 @@ void LilygoT547Display::setup() {
     epd_set_rotation(orientation);
   }
   // this->set_auto_clear(false);
-  this->do_update_();
+  // this->do_update_();
   ESP_LOGD(TAG, "Display setup completed - Lilygo T5-4.7 display");
 }
 
