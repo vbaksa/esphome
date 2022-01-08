@@ -23,6 +23,7 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
 
   void set_clear_screen(bool clear);
   void set_landscape(bool landscape);
+  void set_power_off_delay(bool power_off_delay);
   void set_temperature(uint32_t temperature);
 
   int get_width_internal();
@@ -34,8 +35,6 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void update() override;
 
   void clear();
-  // Was screen cleared at leat once
-  bool was_cleared();
   void flush_screen_changes();
   void set_all_white();
   void poweron();
@@ -46,8 +45,9 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void HOT draw_absolute_pixel_internal(int x, int y, Color color) override;
 
   bool clear_;
-  bool was_cleared_ = false;
+  bool init_clear_executed_ = false;
   bool temperature_;
+  bool power_off_delay_;
   bool landscape_;
 };
 
