@@ -3,6 +3,7 @@
 
 #include "esphome/components/display/display_buffer.h"
 #include "esphome/components/display/display_color_utils.h"
+#include "esphome/core/hal.h"
 
 #include "epd_driver.h"
 #include "epd_highlevel.h"
