@@ -33,6 +33,7 @@ void LilygoT547Display::setup() {
     epd_set_rotation(orientation);
   }
   fb = epd_hl_get_framebuffer(&hl);
+  this->partial_updates_ = this->full_update_every_;
 }
 
 void LilygoT547Display::update() {
@@ -40,11 +41,17 @@ void LilygoT547Display::update() {
     LilygoT547Display::clear();
     this->init_clear_executed_ = true;
   }
+  if(this->partial_updates_ == 0 && this->full_update_every_ != 0 ) {
+    this->clear();
+  } else {
+    this->partial_updates_--;
+  }
   this->do_update_();
   LilygoT547Display::flush_screen_changes();
 }
 
 void LilygoT547Display::clear() {
+  this->partial_updates_ = this->full_update_every_;
   epd_poweron();
   epd_fullclear(&hl, this->temperature_);
   epd_poweroff();
