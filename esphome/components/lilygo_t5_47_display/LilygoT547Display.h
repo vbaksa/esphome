@@ -44,6 +44,8 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void poweron();
   void poweroff();
   void on_shutdown() override;
+  
+  display::DisplayType get_display_type() override { return display::DisplayType::DISPLAY_TYPE_BINARY; }
 
  protected:
   void HOT draw_absolute_pixel_internal(int x, int y, Color color) override;
