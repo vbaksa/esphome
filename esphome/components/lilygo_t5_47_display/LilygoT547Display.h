@@ -4,6 +4,7 @@
 #include "esphome/components/display/display_buffer.h"
 #include "esphome/components/display/display_color_utils.h"
 #include "esphome/core/hal.h"
+#include "esphome/core/version.h"
 
 #ifndef EPD_DRIVER
 #define EPD_DRIVER
@@ -44,6 +45,10 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void poweron();
   void poweroff();
   void on_shutdown() override;
+
+#if ESPHOME_VERSION_CODE >= VERSION_CODE(2022,6,0)  
+  display::DisplayType get_display_type() override { return display::DisplayType::DISPLAY_TYPE_GRAYSCALE; }
+#endif
 
  protected:
   void HOT draw_absolute_pixel_internal(int x, int y, Color color) override;
