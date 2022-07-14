@@ -47,7 +47,7 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void on_shutdown() override;
 
 #if ESPHOME_VERSION_CODE >= VERSION_CODE(2022,6,0)  
-  display::DisplayType get_display_type() override { return display::DisplayType::DISPLAY_TYPE_GRAYSCALE; }
+  display::DisplayType get_display_type() override { return display::DisplayType::DISPLAY_TYPE_COLOR; }
 #endif
 
  protected:
