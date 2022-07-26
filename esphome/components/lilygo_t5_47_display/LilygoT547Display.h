@@ -30,6 +30,7 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void set_landscape(bool landscape);
   void set_power_off_delay_enabled(bool power_off_delay_enabled);
   void set_temperature(uint32_t temperature);
+  void set_full_update_every(uint32_t full_update_every) { this->full_update_every_ = full_update_every; }
 
   int get_width_internal();
 
@@ -58,6 +59,8 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   bool temperature_;
   bool power_off_delay_enabled_;
   bool landscape_;
+  uint32_t full_update_every_;
+  uint32_t partial_updates_{0};
 };
 
 }  // namespace lilygo_t5_47_display
