@@ -6,7 +6,10 @@ from esphome.const import (
     CONF_ID,
     CONF_LAMBDA,
     CONF_PAGES,
+    CONF_AUTO_CLEAR_ENABLED,
 )
+
+AUTO_LOAD = ["psram"]
 
 CONF_CLEAR = "clear"
 CONF_TEMPERATURE = "temperature"
@@ -22,11 +25,13 @@ CONFIG_SCHEMA = cv.All(
     display.FULL_DISPLAY_SCHEMA.extend(
         {
             cv.GenerateID(): cv.declare_id(Epaper),
-            cv.Optional(CONF_FULL_UPDATE_EVERY, default=10): cv.uint32_t,
+            cv.Optional(CONF_FULL_UPDATE_EVERY, default=10): cv.uint8_t,
             cv.Optional(CONF_CLEAR, default=True): cv.boolean,
             cv.Optional(CONF_POWER_OFF_DELAY_ENABLED, default=False): cv.boolean,
             cv.Optional(CONF_LANDSCAPE, default=True): cv.boolean,
-            cv.Optional(CONF_TEMPERATURE, default=23): cv.uint32_t,
+            cv.Optional(CONF_TEMPERATURE, default=23): cv.uint8_t,
+            # Overwrite default of base display class.
+            cv.Optional(CONF_AUTO_CLEAR_ENABLED, default=False): cv.boolean,
         }
     ).extend(cv.polling_component_schema("5s")),
     cv.has_at_most_one_key(CONF_PAGES, CONF_LAMBDA),
@@ -48,7 +53,7 @@ async def to_code(config):
     cg.add(var.set_temperature(config[CONF_TEMPERATURE]))
     cg.add(var.set_landscape(config[CONF_LANDSCAPE]))
     cg.add(var.set_power_off_delay_enabled(config[CONF_POWER_OFF_DELAY_ENABLED]))
+    cg.add(var.set_full_update_every(config[CONF_FULL_UPDATE_EVERY]))
     cg.add_library("https://github.com/vroland/epdiy.git", None)
-    cg.add_build_flag("-DBOARD_HAS_PSRAM")
     cg.add_build_flag("-DCONFIG_EPD_DISPLAY_TYPE_ED047TC1")
     cg.add_build_flag("-DCONFIG_EPD_BOARD_REVISION_LILYGO_T5_47")
