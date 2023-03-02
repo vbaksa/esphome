@@ -27,8 +27,9 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   void set_clear_screen(bool val) { this->clear_screen_ = val; }
   void set_landscape(bool val) { this->landscape_ = val; }
   void set_power_off_delay_enabled(bool val) { this->power_off_delay_enabled_ = val; }
-  void set_temperature(uint8_t val) { this->temperature_ = val; }
+  void set_temperature(int8_t val) { this->temperature_ = val; }
   void set_full_update_every(uint8_t val) { this->full_update_every_ = val; }
+  void set_low_memory_mode(bool val) { this->low_memory_mode_ = val; }
 
   int get_width_internal() override { return 960; }
   int get_height_internal() override { return 540; }
@@ -56,9 +57,10 @@ class LilygoT547Display : public PollingComponent, public display::DisplayBuffer
   bool landscape_;
   bool power_off_delay_enabled_;
   // ambient temperature around device
-  uint8_t temperature_;
+  int8_t temperature_;
   uint8_t full_update_every_;
-  uint32_t partial_updates_{0};
+  uint8_t partial_updates_{0};
+  bool low_memory_mode_;
 };
 
 }  // namespace lilygo_t5_47_display

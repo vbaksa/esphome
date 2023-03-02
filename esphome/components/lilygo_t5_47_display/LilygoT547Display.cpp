@@ -9,7 +9,7 @@ namespace lilygo_t5_47_display {
 static const char *const TAG = "lilygo_t5_47_display";
 
 void LilygoT547Display::setup() {
-  epd_init(EPD_OPTIONS_DEFAULT);
+  epd_init(this->low_memory_mode_ ? (EpdInitOptions) (EPD_LUT_1K | EPD_FEED_QUEUE_8) : EPD_OPTIONS_DEFAULT);
   this->hl = epd_hl_init(WAVEFORM);
   if (landscape_) {
     EpdRotation orientation = EPD_ROT_LANDSCAPE;
@@ -50,7 +50,9 @@ void LilygoT547Display::clear_() {
   epd_fullclear(&this->hl, this->temperature_);
 }
 
-void LilygoT547Display::flush_screen_changes_() { this->err = epd_hl_update_screen(&this->hl, MODE_GC16, this->temperature_); }
+void LilygoT547Display::flush_screen_changes_() {
+  this->err = epd_hl_update_screen(&this->hl, MODE_GC16, this->temperature_);
+}
 
 void LilygoT547Display::on_shutdown() {
   ESP_LOGI(TAG, "Shutting down Lilygo T5-4.7 screen");
